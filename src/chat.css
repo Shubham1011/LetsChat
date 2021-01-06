@@ -1,0 +1,25 @@
+.chatbox{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.whole{
+
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: rgb(243, 247, 247);
+}
+
+
+
+.chatbox>h1{
+    flex: 1;
+
+}
+
+.whole:hover{
+    background-color: rgb(212, 202, 202);
+}
+p{
+    margin-left: 40px;
+}
