@@ -1,4 +1,94 @@
 .wholechat{
-    background-color: red;
+    background-color: rgb(255, 255, 255);
     flex: 1;
+    display: flex;
+flex-direction: column;
+justify-content: start;
+}
+.chatHeader{
+
+display: flex;
+flex-direction: row;
+background-color: white;
+    height: 90px;
+    border-radius: 0;
+    justify-content: space-between;
+
+}
+
+.chatheaderright{
+margin-top: 10px;
+}
+
+.chatHeader>h1{
+    align-self: center;
+}
+
+.message{
+    background-color: white;
+    margin: 10px;
+    border-radius: 9px;
+    width: 50%;
+}
+
+.chatWindow{
+    border-radius: 3px;
+    background-image: url('./w.png');
+    background-repeat: repeat;
+    background-position: center;
+    flex: 0.95;
+    overflow-y: auto;
+    
+}
+
+.receive{
+    padding-left: 50%;
+    
+    
+}
+.receive .message{
+    background-color: rgb(75, 156, 125);
+    width: 500px;
+}
+
+.chatname{
+    margin-left: 10px;
+    margin-bottom: -8px;
+    color: black;
+}
+
+.timestamp{
+    font-size: small;
+}
+.typer{
+    flex: 1;
+    display: flex;
+    
+    background-color: white;
+}
+
+.icon{
+    margin-top: 20px;
+}
+
+.chatWindow{
+    
+padding-bottom: 520px;
+}
+
+.typer>input{
+    flex: 0.99;
+    border: 1px solid gray;
+    font-size: medium;
+
+}
+.typer>button{
+    
+}
+
+.typer{
+height:50px;
+}
+.chatheaderright{
+    align-content: center;
 }
