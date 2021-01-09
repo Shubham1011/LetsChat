@@ -1,7 +1,7 @@
 import { Avatar } from '@material-ui/core'
 import React from 'react'
 import './chat.css'
-function SidebarChat({addNewChat}) {
+function SidebarChat({room,currRoom}) {
  
     const createChat=()=>{
       const name=prompt("Please enter chat name")
@@ -10,17 +10,16 @@ function SidebarChat({addNewChat}) {
       }
     }
     
+    const changeRoom=()=>{
+        
+    }
     
-    return !addNewChat?(
-        <div className="whole">
-           <div className="chatbox"> <Avatar/><h2>Room Name</h2>
+    return (
+        <div className="whole" onClick={changeRoom}>
+           <div className="chatbox"> <Avatar/><h2>{room.name}</h2>
           
            </div>
            <p>hello</p>
-        </div>
-    ):(
-        <div  onClick={createChat} className="whole" >
-            <h2>Add new Chat</h2>
         </div>
     )
 }

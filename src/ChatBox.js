@@ -1,20 +1,25 @@
 import { Avatar, IconButton } from '@material-ui/core'
 import { AttachFileOutlined, InsertEmoticon, Mic, MoreVert, Search, VoiceChat } from '@material-ui/icons'
-import React from 'react'
+import React, { useEffect } from 'react'
 import './chatbox.css'
-function ChatBox({messages}) {
+function ChatBox({messages,room}) {
 
 const sendMessage=()=>{
     alert('sent')
 }
 
+useEffect(()=>{
+
+    console.log(messages);
+
+},[messages])
 
 
     return (
         <div class='wholechat'>
             <div className="chatHeader">
                 <Avatar className="icon"></Avatar>
-                <div><h1>Room Name</h1>
+                <div><h1>{room}</h1>
                 <p>Last Seen today</p>
                 </div>
                 <div className="chatheaderright">
@@ -29,7 +34,7 @@ const sendMessage=()=>{
             </div>
             <div class="chatWindow">
               {
-                messages.map(mess=>(
+                messages.filter(m=>m.room==room).map(mess=>(
                   <div className={"all "+(mess.received?'receive':'none')}> <div className="chatname">{mess.name } </div> 
                   <div className="message">  
                   {mess.message}

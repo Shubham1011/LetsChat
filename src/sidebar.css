@@ -2,6 +2,7 @@
     flex: 0.3;
     width: 360px;
     flex-direction: column;
+    
 }
 
 .sidebarhead{
@@ -12,7 +13,7 @@
 }
 
 .sidebarsearch{
-
+    
     display: flex;
     align-items: center;
     border-radius:2px;
@@ -44,11 +45,27 @@
 }
 
 .sidebarrightheader{
+    
     padding: 2px;
     align-items: center;
 }
 
 .sidebarchat{
-    flex: 1;
+    
+   
+   align-content: center;
     background-color:white;
+   height: 466px;
+   overflow-y: auto;
+   
 }
+
+.roller{
+    margin-left: 120px;
+    align-self: center;
+}
+
+
+
+
+

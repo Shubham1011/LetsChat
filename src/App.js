@@ -7,6 +7,14 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 function App() {
 const[messages,setMessages]=useState([]);
+const [currRoom,setcurrRoom]=useState();
+
+const changeRoom=(name)=>{
+
+
+  setcurrRoom(name)
+}
+
 
   useEffect(()=>{
     console.log('api called');
@@ -45,8 +53,8 @@ const[messages,setMessages]=useState([]);
     <div className="App">
       <h1>LetsChat</h1><h5>Thats all we do</h5>
       <div className="app_body">
-      <SideBar></SideBar>
-          <ChatBox  messages={messages}/>
+      <SideBar currRoom={changeRoom}></SideBar>
+          <ChatBox  room={currRoom} messages={messages}/>
       </div>
     </div>
   );
