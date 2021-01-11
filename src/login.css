@@ -1,0 +1,22 @@
+.login{
+    background-color: rgb(104, 120, 151);
+    height: 500px;
+    width: 500px;
+    border-radius: 10px;
+    
+    text-align: center;
+}
+
+.login>img{
+    padding: 20px;
+}
+
+.signin{
+    height: 100px;
+    width: 00px;
+}
+
+img{
+    border-radius: 20px;
+    
+}

@@ -15,20 +15,29 @@ function SideBar({currRoom}) {
     }
     const [rooms,setRooms]=useState([])
     const [loaded,setLoaded]=useState(false)
+    const[counter,setCounter]=useState(0);
     useEffect(()=>{
 
+        
         axios.get('http://localhost:8080/getRooms')
         .then(res=>{
-            setRooms(res.data.reverse())
+            setRooms(res.data)
             setLoaded(true)
+            change(res.data.reverse()[0].name)
+
             
         }).catch(e=>{
             console.log(e);
         })
+
+        
+     //   console.log('dd');
     },[])
+         
+
 
     useEffect(() => {
-        console.log('subscriber created');
+     //   console.log('subscriber created');
         const pusher = new Pusher('3e888fccfeb395bd6cc6', {
           cluster: 'ap2'
         });
@@ -37,13 +46,13 @@ function SideBar({currRoom}) {
         channel.bind('addRoom', function(data) {
           //alert(JSON.stringify(data));
          
-          setRooms([data,...rooms]);
+          setRooms([...rooms,data].reverse());
         });
-        console.log(rooms);
+       // console.log(rooms);
         return ()=>{
           channel.unbind_all();
           channel.unsubscribe();
-          console.log('unsubscribed');
+       //   console.log('unsubscribed');
         }
         
        
@@ -56,9 +65,10 @@ function SideBar({currRoom}) {
            //call api 
            axios.post('http://localhost:8080/addRoom',{
                name:roomName
-           }).then(res=>console.log('data added'))
+           }).then(res=>{})
            .catch(e=>console.log(e))
        }
+       
    }
 
     return (
@@ -85,8 +95,7 @@ function SideBar({currRoom}) {
             <h2>Add new Chat</h2>
         </div>
             <div  className="sidebarchat">
-            
-     
+           
            {
         
             !loaded ? <div className="roller"><Spinner /></div> : <div>
