@@ -7,7 +7,8 @@ import Pusher from 'pusher-js'
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Login from './Login';
-
+import { positions, Provider, useAlert } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 function App() {
 const[messages,setMessages]=useState([]);
 const [currRoom,setcurrRoom]=useState();
@@ -20,16 +21,33 @@ const changeRoom=(name)=>{
 
   setcurrRoom(name)
 }
-useEffect(()=>{
 
-  const username=prompt('Please enter userName')
-  setName(username)
+
+const userFectched=(userbase)=>{
+  setUser(userbase)
+  console.log('hello');
+}
+
+const options = {
+  timeout: 5000,
+  position: positions.TOP_CENTER,
+  
+};
+
+useEffect(()=>{
+if(user)
+setName(user.displayName)
+
  // console.log(userName);
 
-},[])
+},[user])
+
+
+
 
   useEffect(()=>{
    // console.log('api called');
+   console.log('api called');
     axios.get("http://localhost:8080/get").then(res=>{
         
         let m=[...messages,res.data]
@@ -49,20 +67,18 @@ useEffect(()=>{
     })
   },[])
   
-  useEffect(()=>{
+ 
 
-   
-  
-  },[messages])
+
   useEffect(() => {
- //   console.log('subscriber created');
-    const pusher = new Pusher('3e888fccfeb395bd6cc6', {
-      cluster: 'ap2'
-    });
-  
+   console.log('subscriber created');
+ var pusher = new Pusher('f9079a0d6790d52fcce8', {
+  cluster: 'ap2'
+});
     const channel = pusher.subscribe('chat');
     channel.bind('addMessage', function(data) {
      // alert(JSON.stringify(data));
+    // alert.show('New Message from '+data.name)
       let m=[...messages,data]
       m.forEach((message)=>{
         if(message.name!=userName)
@@ -87,7 +103,8 @@ useEffect(()=>{
     return ()=>{
       channel.unbind_all();
       channel.unsubscribe();
-    //  console.log('unsubscribed');
+    // console.log('unsubscribed');
+     //console.log('unsubscribed');
     }
     
  
@@ -96,17 +113,19 @@ useEffect(()=>{
 
 //  console.log(messages);
 
+
+
   return (
     <div className="App">
-      
+       <Provider template={AlertTemplate} {...options}>
       {
         user ? (<div className="app_body">
-          <h1>LetsChat</h1><h5>Thats all we do</h5>
-        <SideBar currRoom={changeRoom}></SideBar>
+         
+        <SideBar photoURL={user.photoURL} currRoom={changeRoom}></SideBar>
             <ChatBox  room={currRoom} username={userName} messages={messages} disable={disable}  />
-        </div>):(<div><Login></Login></div>)
+        </div>):(<div><Login userFectched={userFectched}></Login></div>)
       }
-      
+      </Provider>
     </div>
   );
 }

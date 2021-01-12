@@ -8,7 +8,7 @@ import Pusher from 'pusher-js'
 import {Dots, Sentry, Spinner} from 'react-activity';
 import { render } from 'react-dom';
 import 'react-activity/dist/react-activity.css';
-function SideBar({currRoom}) {
+function SideBar({currRoom,photoURL}) {
 
     const change=(name)=>{
         currRoom(name)
@@ -16,10 +16,11 @@ function SideBar({currRoom}) {
     const [rooms,setRooms]=useState([])
     const [loaded,setLoaded]=useState(false)
     const[counter,setCounter]=useState(0);
+    const [changeer,setc]=useState(false)
     useEffect(()=>{
 
         
-        axios.get('http://localhost:8080/getRooms')
+        axios.get('https://letschatbackend.herokuapp.com/getRooms')
         .then(res=>{
             setRooms(res.data)
             setLoaded(true)
@@ -33,14 +34,29 @@ function SideBar({currRoom}) {
         
      //   console.log('dd');
     },[])
+
+    const afterSearch=()=>{
+         
+        axios.get('https://letschatbackend.herokuapp.com/getRooms')
+        .then(res=>{
+            setRooms(res.data)
+            setLoaded(true)
+            change(res.data.reverse()[0].name)
+
+            
+        }).catch(e=>{
+            console.log(e);
+        }) 
+    }
          
 
 
     useEffect(() => {
      //   console.log('subscriber created');
-        const pusher = new Pusher('3e888fccfeb395bd6cc6', {
-          cluster: 'ap2'
-        });
+     var pusher = new Pusher('f9079a0d6790d52fcce8', {
+        cluster: 'ap2'
+      });
+  //    console.log('pusher');
       
         const channel = pusher.subscribe('room');
         channel.bind('addRoom', function(data) {
@@ -50,32 +66,51 @@ function SideBar({currRoom}) {
         });
        // console.log(rooms);
         return ()=>{
+       //     console.log('pusher closed' );
           channel.unbind_all();
           channel.unsubscribe();
        //   console.log('unsubscribed');
         }
         
        
-      }, [rooms])
+      }, [rooms,changeer])
 
 
    const createChat=()=>{
        const roomName=prompt('Enter Room Name');
        if(roomName){
            //call api 
-           axios.post('http://localhost:8080/addRoom',{
+           axios.post('https://letschatbackend.herokuapp.com/addRoom',{
                name:roomName
-           }).then(res=>{})
+           }).then(res=>{
+
+            if(changeer)
+            setc(false)
+            else
+            setc(true)
+
+           })
            .catch(e=>console.log(e))
        }
+      
        
    }
+
+const search=(e)=>{
+  //  alert(e.target.value)
+
+    if(e.target.value=='')
+    afterSearch()
+    let newarr=rooms.filter((r)=>r.name.startsWith(e.target.value))
+    setRooms(newarr)
+    
+}
 
     return (
         <div className="sidebar">
          
             <div className="sidebarhead">
-             <Avatar></Avatar>
+             <Avatar src={photoURL}></Avatar>
              <div className="sidebarrightheader">
                  <IconButton><DonutLarge></DonutLarge></IconButton>
                  
@@ -87,11 +122,11 @@ function SideBar({currRoom}) {
             <div className="sidebarsearch">
                 <div className="searchContainer">
                 <SearchOutlined></SearchOutlined>
-                <input type="text" placeholder="Search Chat or start a new one"></input>
+                <input   onChange={search}  type="text" placeholder="Search Chat or start a new one"></input>
                 </div>
               
             </div>
-            <div  onClick={createChat} className="whole" >
+            <div  onClick={createChat} className="wholer" >
             <h2>Add new Chat</h2>
         </div>
             <div  className="sidebarchat">
@@ -100,7 +135,7 @@ function SideBar({currRoom}) {
         
             !loaded ? <div className="roller"><Spinner /></div> : <div>
                 {  rooms.map((room)=>(
-                    <div onClick={()=>change(room.name)}> <SideBarChat   room={room}/></div>
+                    <div  key={room.id}  onClick={()=>change(room.name)}> <SideBarChat   room={room}/></div>
                  ))
                 }
                </div>

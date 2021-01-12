@@ -20,16 +20,27 @@
     
 }
 
+.wholer{
+    border: 1px solid black;
+    margin: 6px;
+}
+
 .searchContainer{
+    
     flex: 1;
     background-color: white;
-    margin: 3px;
+    margin: -2px;
     border: none;
     border-radius:10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    vertical-align: middle;
 }
 
 .MuiSvgIcon-root{
-    padding-top: 5px;
+    
 }
 
 .searchContainer>input{
@@ -37,11 +48,12 @@
     width: 250px;
     text-align: center;
     height: 30px;
-    left: -30px;
-    margin-left: 40px;
+    background-color: white;
+    margin-left: 5px;
     border-radius: 5px;
-    position: relative;
-    bottom: 8px;
+
+    
+    
 }
 
 .sidebarrightheader{
@@ -55,7 +67,7 @@
    
    align-content: center;
     background-color:white;
-   height: 466px;
+   height: 520px;
    overflow-y: auto;
    
 }
