@@ -4,10 +4,13 @@ import axios from 'axios'
 import React, { useEffect , useState} from 'react'
 import { useAlert } from 'react-alert'
 import './chatbox.css'
+import {Bounce, Digital, Dots, Levels, Sentry, Spinner, Squares,Windmill} from 'react-activity';
+import { render } from 'react-dom';
+import 'react-activity/dist/react-activity.css';
 function ChatBox({messages,room,username,disable}) {
 
     const [mess,setMess]=useState('');
-
+    const[sending,setSending]=useState(false)
     useEffect(()=>{
 
         messages.forEach((message)=>{
@@ -22,12 +25,18 @@ function ChatBox({messages,room,username,disable}) {
 
     const hola=(e)=>{
         
-      if(e.code=='Enter')
-      sendMessage()
+      
+      
+      if(e.code=='Enter'){
+        document.getElementById('te').value=''
+        sendMessage()
+      }
+
+
     }
    
 const sendMessage=()=>{
-    
+    setSending(true)
    // alert('sent')
    //alert(room)
    if(room==undefined){
@@ -44,6 +53,7 @@ const sendMessage=()=>{
       }).then(res=>{
           setMess('')
           document.getElementById('te').value=''
+          setSending(false)
       })
     }
 
@@ -88,6 +98,11 @@ setMess(e.target.value)
                     </div> 
                 ))
               }
+            {
+            
+            sending ? (<div><Digital size={35} color={'blue'}/></div>):(<div></div>)
+
+            }
              
          
                   

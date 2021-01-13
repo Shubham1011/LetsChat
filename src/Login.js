@@ -1,11 +1,27 @@
 import { Button } from '@material-ui/core'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
 import { useAlert } from 'react-alert'
 import { auth, provider } from './firebase'
 
 import './login.css'
 function Login({userFectched}) {
     const userAlert=useAlert();
+
+    useEffect(()=>{
+
+
+        axios.get("http://localhost:8080/get").then(res=>{
+        
+           
+             
+          })
+    
+         
+    
+        
+        
+    })
     
     var firebase = require('firebase');
     const signIn=()=>{
