@@ -31,7 +31,7 @@ function Login({userFectched}) {
        const provider=new firebase.default.auth.GoogleAuthProvider()
         auth.signInWithPopup(provider).then(res=>{
 
-            userAlert.show('You got no agreements to make here !!')
+            userAlert.show('Takes time to load at first because of the free teir service')
             userFectched(res.user)
         }).catch(e=>alert(e.message))
 

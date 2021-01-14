@@ -29,7 +29,7 @@ const userFectched=(userbase)=>{
 }
 
 const options = {
-  timeout: 5000,
+  timeout: 10000,
   position: positions.TOP_CENTER,
   
 };
